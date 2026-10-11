@@ -36,6 +36,10 @@ set(LLM_SOURCES
     src/llm/llm_client.cpp
 )
 
+set(TOOLS_SOURCES
+    src/tools/builtin_tools.cpp
+)
+
 set(CLI_SOURCES
     src/cli/cli.cpp
 )
@@ -47,6 +51,7 @@ set(MAIN_SOURCES
 add_executable(pilot
     ${CORE_SOURCES}
     ${LLM_SOURCES}
+    ${TOOLS_SOURCES}
     ${CLI_SOURCES}
     ${MAIN_SOURCES}
 )

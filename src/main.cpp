@@ -5,8 +5,15 @@
 #include "core/agent.h"
 #include "llm/llm_client.h"
 #include "cli/cli.h"
+#include "tools/builtin_tools.h"
 
 int main(int argc, char* argv[]) {
+    // Register built-in tools
+    auto& registry = pilot::tools::ToolRegistry::getInstance();
+    registry.registerTool(std::make_shared<pilot::tools::FileReadTool>());
+    registry.registerTool(std::make_shared<pilot::tools::FileWriteTool>());
+    registry.registerTool(std::make_shared<pilot::tools::ShellExecTool>());
+
     // Initialize LLM client (using proxy API key & base URL)
     std::string api_key = "sk-f3a42e71a134e259-lqeopw-0632a5f5";
     if (const char* env_key = std::getenv("PROXY_API_KEY")) {
@@ -19,16 +26,18 @@ int main(int argc, char* argv[]) {
     // Create Orchestrator
     auto orchestrator = std::make_shared<pilot::core::Orchestrator>();
 
-    // Register Agents
+    // Register Agents with advanced prompt for Claude-CLI level capability
     auto planner = std::make_shared<pilot::core::Agent>(
         "planner",
-        "You are an expert software architect responsible for breaking down user requirements into concrete development tasks.",
+        "You are an expert software architect responsible for analyzing requirements, designing modular C++17 architecture, and outlining precise tasks.",
         llm_client
     );
 
     auto coder = std::make_shared<pilot::core::Agent>(
         "coder",
-        "You are an expert C++ developer responsible for writing clean, high-performance, and robust code.",
+        "You are an expert C++ developer responsible for writing robust, high-performance, and modular code. "
+        "You have access to tools such as file_read, file_write, and shell_exec. "
+        "When implementing code, output clear, complete code files and explain your implementation.",
         llm_client
     );
 
