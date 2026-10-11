@@ -1,7 +1,7 @@
-# Pilot System Configuration
+# agent-code-Pilot System Configuration
 
 system:
-  name: "Pilot Multi-Agent System"
+  name: "agent-code-Pilot Multi-Agent System"
   version: "0.1.0"
   log_level: "INFO"
 

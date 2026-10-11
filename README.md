@@ -1,4 +1,4 @@
-# Pilot — Multi-Agent Code Development System (多智能体编程协作系统)
+# agent-code-Pilot — Multi-Agent Code Development System (多智能体编程协作系统)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![C++17](https://img.shields.io/badge/C++-17-blue.svg)](https://en.wikipedia.org/wiki/C++17)
@@ -8,7 +8,7 @@
 > 欢迎大家共同学习、交流与贡献代码！
 > 
 > **联系作者 / Contact**
-> 如果您在学习或使用本项目时遇到任何问题，欢迎通过邮箱与我联系：
+> 如果您在学习 or 使用本项目时遇到任何问题，欢迎通过邮箱与我联系：
 > 📧 **li2542369686@163.com**
 > 收到邮件后我会第一时间回复您。
 
@@ -16,7 +16,7 @@
 
 ## 🏗️ 架构特点 (Architecture Highlights)
 
-Pilot 采用模块化、面向对象的设计理念，确保代码清晰、易于扩展，非常适合二次开发和团队协作：
+agent-code-Pilot 采用模块化、面向对象的设计理念，确保代码清晰、易于扩展，非常适合二次开发和团队协作：
 
 1. **高性能核心 (Core Framework)**：
    - **Orchestrator**：中心调度器，负责任务编排、依赖关系管理及工作流调度。
