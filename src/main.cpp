@@ -6,6 +6,7 @@
 #include "llm/llm_client.h"
 #include "cli/cli.h"
 #include "tools/builtin_tools.h"
+#include "mcp/mcp_client.h"
 
 int main(int argc, char* argv[]) {
     // Register built-in tools (File, Shell, Network, Compiler, Interpreter)
@@ -16,6 +17,16 @@ int main(int argc, char* argv[]) {
     registry.registerTool(std::make_shared<pilot::tools::NetworkTool>());
     registry.registerTool(std::make_shared<pilot::tools::CompilerTool>());
     registry.registerTool(std::make_shared<pilot::tools::InterpreterTool>());
+
+    // Initialize MCP Client and connect to sample Python MCP server
+    pilot::mcp::MCPClient mcp_client;
+    if (mcp_client.connect("python3 scripts/sample_mcp_server.py")) {
+        auto mcp_tools = mcp_client.listTools();
+        std::cout << "[agent-code-Pilot] Discovered " << mcp_tools.size() << " tools from MCP Server:\n";
+        for (const auto& t : mcp_tools) {
+            std::cout << "  - [MCP] " << t.name << ": " << t.description << "\n";
+        }
+    }
 
     // Initialize LLM client (using proxy API key & base URL)
     std::string api_key = "sk-f3a42e71a134e259-lqeopw-0632a5f5";
@@ -39,7 +50,7 @@ int main(int argc, char* argv[]) {
     auto coder = std::make_shared<pilot::core::Agent>(
         "coder",
         "You are an expert C++ developer responsible for writing robust, high-performance, and modular code. "
-        "You have access to a full suite of agent tools: file_read, file_write, shell_exec, network_request, compiler, and interpreter. "
+        "You have access to a full suite of agent tools: file_read, file_write, shell_exec, network_request, compiler, interpreter, and MCP tools. "
         "When implementing code, output clear, complete code files and explain your implementation.",
         llm_client
     );

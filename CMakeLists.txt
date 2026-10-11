@@ -44,6 +44,10 @@ set(CLI_SOURCES
     src/cli/cli.cpp
 )
 
+set(MCP_SOURCES
+    src/mcp/mcp_client.cpp
+)
+
 set(MAIN_SOURCES
     src/main.cpp
 )
@@ -53,6 +57,7 @@ add_executable(pilot
     ${LLM_SOURCES}
     ${TOOLS_SOURCES}
     ${CLI_SOURCES}
+    ${MCP_SOURCES}
     ${MAIN_SOURCES}
 )
 
