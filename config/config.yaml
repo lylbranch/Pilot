@@ -1,0 +1,43 @@
+# Pilot System Configuration
+
+system:
+  name: "Pilot Multi-Agent System"
+  version: "0.1.0"
+  log_level: "INFO"
+
+llm:
+  default_provider: "proxy" # options: proxy, ustc, openai, claude, ollama
+  timeout_seconds: 60
+  providers:
+    proxy:
+      api_key_env: "PROXY_API_KEY"
+      api_key: "sk-f3a42e71a134e259-lqeopw-0632a5f5"
+      base_url: "http://189.24.105.44:20128/v1"
+      model: "ag/gemini-3-flash"
+    ustc:
+      api_key_env: "USTC_API_KEY"
+      api_key: "sk-YBTk_IMCw-VFcePrVoh-rg"
+      base_url: "https://api.llm.ustc.edu.cn/v1"
+      model: "gpt-4o"
+    openai:
+      api_key_env: "OPENAI_API_KEY"
+      base_url: "https://api.openai.com/v1"
+      model: "gpt-4o"
+    claude:
+      api_key_env: "ANTHROPIC_API_KEY"
+      base_url: "https://api.anthropic.com/v1"
+      model: "claude-3-5-sonnet-20241022"
+    ollama:
+      base_url: "http://localhost:11434"
+      model: "qwen2.5-coder"
+
+agents:
+  planner:
+    enabled: true
+    max_steps: 10
+  coder:
+    enabled: true
+    max_steps: 20
+  reviewer:
+    enabled: true
+    max_steps: 10
