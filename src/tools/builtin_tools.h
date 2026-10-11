@@ -26,12 +26,42 @@ public:
 };
 
 /**
- * @brief Tool to execute shell commands (e.g., compilation, tests).
+ * @brief Tool to execute shell commands.
  */
 class ShellExecTool : public ITool {
 public:
     std::string getName() const override { return "shell_exec"; }
     std::string getDescription() const override { return "Execute a shell command. Arguments: {\"command\": \"...\"}"; }
+    nlohmann::json execute(const nlohmann::json& arguments) override;
+};
+
+/**
+ * @brief Network module tool for HTTP requests (GET/POST).
+ */
+class NetworkTool : public ITool {
+public:
+    std::string getName() const override { return "network_request"; }
+    std::string getDescription() const override { return "Perform HTTP requests. Arguments: {\"url\": \"...\", \"method\": \"GET/POST\", \"data\": \"...\"}"; }
+    nlohmann::json execute(const nlohmann::json& arguments) override;
+};
+
+/**
+ * @brief Compiler module tool (C/C++ g++/gcc/make).
+ */
+class CompilerTool : public ITool {
+public:
+    std::string getName() const override { return "compiler"; }
+    std::string getDescription() const override { return "Compile C/C++ source code. Arguments: {\"source\": \"main.cpp\", \"output\": \"app\", \"flags\": \"-std=c++17 -O3\"}"; }
+    nlohmann::json execute(const nlohmann::json& arguments) override;
+};
+
+/**
+ * @brief Interpreter module tool (Python, Node, Bash).
+ */
+class InterpreterTool : public ITool {
+public:
+    std::string getName() const override { return "interpreter"; }
+    std::string getDescription() const override { return "Run scripts using language interpreters. Arguments: {\"language\": \"python3/node/bash\", \"script_path\": \"script.py\" or \"code\": \"...\"}"; }
     nlohmann::json execute(const nlohmann::json& arguments) override;
 };
 

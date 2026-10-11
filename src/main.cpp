@@ -8,11 +8,14 @@
 #include "tools/builtin_tools.h"
 
 int main(int argc, char* argv[]) {
-    // Register built-in tools
+    // Register built-in tools (File, Shell, Network, Compiler, Interpreter)
     auto& registry = pilot::tools::ToolRegistry::getInstance();
     registry.registerTool(std::make_shared<pilot::tools::FileReadTool>());
     registry.registerTool(std::make_shared<pilot::tools::FileWriteTool>());
     registry.registerTool(std::make_shared<pilot::tools::ShellExecTool>());
+    registry.registerTool(std::make_shared<pilot::tools::NetworkTool>());
+    registry.registerTool(std::make_shared<pilot::tools::CompilerTool>());
+    registry.registerTool(std::make_shared<pilot::tools::InterpreterTool>());
 
     // Initialize LLM client (using proxy API key & base URL)
     std::string api_key = "sk-f3a42e71a134e259-lqeopw-0632a5f5";
@@ -36,7 +39,7 @@ int main(int argc, char* argv[]) {
     auto coder = std::make_shared<pilot::core::Agent>(
         "coder",
         "You are an expert C++ developer responsible for writing robust, high-performance, and modular code. "
-        "You have access to tools such as file_read, file_write, and shell_exec. "
+        "You have access to a full suite of agent tools: file_read, file_write, shell_exec, network_request, compiler, and interpreter. "
         "When implementing code, output clear, complete code files and explain your implementation.",
         llm_client
     );
@@ -47,7 +50,7 @@ int main(int argc, char* argv[]) {
     // If an argument is provided on command line, run it once as a quick task; otherwise start interactive CLI
     if (argc > 1) {
         std::string prompt = argv[1];
-        std::cout << "[Pilot] Running single task from CLI argument: \"" << prompt << "\"\n";
+        std::cout << "[agent-code-Pilot] Running single task from CLI argument: \"" << prompt << "\"\n";
         
         pilot::core::Task task1;
         task1.id = "t1";
